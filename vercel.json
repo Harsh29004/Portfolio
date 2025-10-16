@@ -2,15 +2,10 @@
   "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "functions": {
-    "api/**/*.py": {
-      "runtime": "python3.9"
-    }
-  },
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "/api/index"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
       "source": "/(.*)",
