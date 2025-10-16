@@ -1,25 +1,20 @@
 {
-  "version": 2,
   "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "builds": [
-    {
-      "src": "backend/app.py",
-      "use": "@vercel/python"
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.9"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "backend/app.py"
+      "source": "/api/:path*",
+      "destination": "/api/index"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  ],
-  "env": {
-    "FLASK_ENV": "production"
-  }
+  ]
 }

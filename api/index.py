@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os
 from datetime import datetime
 import random
 
@@ -55,7 +54,6 @@ PORTFOLIO_DATA = {
         'Python Development Workshop (MLSA, GDSC)',
         'React Development Workshop (Devtown)'
     ],
-    'languages': ['English', 'Hindi', 'Gujarati'],
     'contact': {
         'email': 'harshpanchal2904@gmail.com',
         'github': 'https://github.com/Harsh29004',
@@ -63,65 +61,82 @@ PORTFOLIO_DATA = {
     }
 }
 
-
 @app.route('/api/generate-bio', methods=['POST', 'GET'])
 def generate_bio():
-    """Generate an AI-crafted professional bio"""
     bios = [
-        "As an AI and Data Science enthusiast, I specialize in developing intelligent systems that solve real-world problems. My expertise spans machine learning, deep learning, and full-stack web development. I'm passionate about leveraging cutting-edge technologies to create innovative solutions that make a meaningful impact.",
-        
-        "Driven by curiosity and powered by code, I transform complex datasets into actionable insights and build AI solutions that bridge the gap between technology and human needs. With a strong foundation in both theoretical concepts and practical implementation, I bring ideas to life through elegant, scalable systems.",
-        
-        "I'm an AI engineer who believes in the transformative power of data and machine learning. From computer vision projects detecting forest fires to predictive analytics systems, I create intelligent applications that solve tangible problems. My journey combines rigorous academic learning with hands-on project experience.",
-        
-        "Passionate about the intersection of artificial intelligence and real-world applications, I build systems that learn, adapt, and deliver value. Whether it's developing neural networks for image classification or creating interactive web applications, I focus on solutions that are both technically sound and user-centric."
+        "As an AI and Data Science enthusiast, I specialize in developing intelligent systems that solve real-world problems. My expertise spans machine learning, deep learning, and full-stack web development.",
+        "Driven by curiosity and powered by code, I transform complex datasets into actionable insights and build AI solutions that bridge the gap between technology and human needs.",
+        "Passionate about the intersection of artificial intelligence and real-world applications, I build systems that learn, adapt, and deliver value."
     ]
-    
-    selected_bio = random.choice(bios)
-    
     return jsonify({
-        'bio': selected_bio,
+        'bio': random.choice(bios),
         'generated_at': datetime.now().isoformat()
     })
 
+@app.route('/api/explain-project', methods=['POST'])
+def explain_project():
+    data = request.json
+    project_title = data.get('project', '')
+    
+    explanation = f"{project_title} demonstrates advanced capabilities in AI and software engineering, combining multiple technologies to solve real-world problems effectively."
+    
+    return jsonify({
+        'explanation': explanation,
+        'generated_at': datetime.now().isoformat()
+    })
+
+@app.route('/api/recommend-projects', methods=['POST'])
+def recommend_projects():
+    data = request.json
+    query = data.get('query', '').lower()
+    
+    recommendations = []
+    if 'ai' in query or 'ml' in query:
+        recommendations = [1, 3, 4]
+    elif 'web' in query:
+        recommendations = [2]
+    else:
+        recommendations = [1, 2]
+    
+    return jsonify({
+        'recommendations': recommendations,
+        'query': query
+    })
 
 @app.route('/api/chatbot', methods=['POST'])
 def chatbot():
-    """Handle chatbot queries"""
     data = request.json
     message = data.get('message', '').lower()
     
-    response = ""
-    
-    if any(word in message for word in ['skill', 'technology', 'know', 'tech']):
-        response = f"Harsh has expertise in multiple domains:\n\n🤖 AI/ML: {', '.join(PORTFOLIO_DATA['skills']['ai_ml'][:4])}\n\n💻 Programming: {', '.join(PORTFOLIO_DATA['skills']['programming'])}\n\n🌐 Web Dev: {', '.join(PORTFOLIO_DATA['skills']['web'][:4])}\n\nHe's proficient in building end-to-end AI solutions!"
-    
-    elif any(word in message for word in ['project', 'work', 'portfolio']):
-        projects_list = '\n'.join([f"• {p['title']} - {p['impact']}" for p in PORTFOLIO_DATA['projects']])
-        response = f"Here are Harsh's key projects:\n\n{projects_list}\n\nEach project showcases his ability to solve real-world problems with AI and technology!"
-    
-    elif any(word in message for word in ['contact', 'reach', 'email', 'hire', 'linkedin', 'github']):
-        response = f"You can reach Harsh through:\n\n📧 {PORTFOLIO_DATA['contact']['email']}\n💼 {PORTFOLIO_DATA['contact']['linkedin']}\n🐙 {PORTFOLIO_DATA['contact']['github']}\n\nFeel free to connect!"
-    
+    if 'skill' in message:
+        response = "Harsh has expertise in AI/ML (Python, TensorFlow, Keras), Web Dev (React, Flask), and Data (SQL, MongoDB)!"
+    elif 'project' in message:
+        response = "Key projects: Forest Fire Detection, Music Bot Website, Diamond Price Predictor, and Diabetic Retinopathy Prediction!"
+    elif 'contact' in message:
+        response = f"Email: {PORTFOLIO_DATA['contact']['email']}, GitHub: {PORTFOLIO_DATA['contact']['github']}"
     else:
-        response = "I can help you learn about:\n\n• Harsh's technical skills\n• His projects and experience\n• Education and certifications\n• Contact information\n\nWhat would you like to know?"
+        response = "I can help you learn about Harsh's skills, projects, experience, and contact information!"
     
     return jsonify({
         'response': response,
         'timestamp': datetime.now().isoformat()
     })
 
+@app.route('/api/contact', methods=['POST'])
+def contact():
+    return jsonify({
+        'success': True,
+        'message': 'Thank you for reaching out!'
+    })
 
 @app.route('/api/health', methods=['GET'])
 def health():
-    """Health check"""
     return jsonify({
         'status': 'healthy',
-        'service': 'AI Portfolio Backend',
         'timestamp': datetime.now().isoformat()
     })
 
-
 # Vercel serverless function handler
 def handler(request):
-    return app(request.environ, lambda *args: None)
+    with app.request_context(request.environ):
+        return app.full_dispatch_request()
