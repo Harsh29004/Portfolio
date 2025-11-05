@@ -29,7 +29,7 @@ const Hero = () => {
       }
       
       if (index === phrase.length + 1) {
-        setTimeout(() => { isDeleting = true }, 2000)
+        setTimeout(() => { isDeleting = true }, 3000)
       }
       
       if (isDeleting && index === 0) {
@@ -37,7 +37,7 @@ const Hero = () => {
         setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
       }
       
-      const speed = isDeleting ? 50 : 100
+      const speed = isDeleting ? 80 : 150
       setTimeout(type, speed)
     }
     

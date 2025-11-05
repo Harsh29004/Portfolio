@@ -89,7 +89,6 @@ const Footer = () => {
               ))}
             </div>
             <p className="text-gray-400 mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed max-w-md mx-auto sm:mx-0">
-              This portfolio showcases AI-powered interactivity and modern web design principles.
             </p>
           </div>
         </div>
