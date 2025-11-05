@@ -12,7 +12,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #0a0a0f;
+  background-color: #000000;
   color: #ffffff;
   overflow-x: hidden;
 }
@@ -23,16 +23,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #00f5ff, #ff00ff);
+  background: linear-gradient(180deg, #00BFFF, #1E90FF);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #00d4ff, #dd00dd);
+  background: linear-gradient(180deg, #1E90FF, #00BFFF);
 }
 
 /* Glass morphism effect */
@@ -50,7 +50,7 @@ body {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #00f5ff, #ff00ff, #00ff88);
+  background: linear-gradient(135deg, #00BFFF, #87CEEB, #1E90FF);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -60,26 +60,26 @@ body {
 
 /* Neon glow effects */
 .neon-cyan {
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.5),
-              0 0 40px rgba(0, 245, 255, 0.3),
-              0 0 60px rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.5),
+              0 0 40px rgba(0, 191, 255, 0.3),
+              0 0 60px rgba(0, 191, 255, 0.1);
 }
 
 .neon-magenta {
-  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5),
-              0 0 40px rgba(255, 0, 255, 0.3),
-              0 0 60px rgba(255, 0, 255, 0.1);
+  box-shadow: 0 0 20px rgba(135, 206, 235, 0.5),
+              0 0 40px rgba(135, 206, 235, 0.3),
+              0 0 60px rgba(135, 206, 235, 0.1);
 }
 
 .neon-green {
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5),
-              0 0 40px rgba(0, 255, 136, 0.3),
-              0 0 60px rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.5),
+              0 0 40px rgba(30, 144, 255, 0.3),
+              0 0 60px rgba(30, 144, 255, 0.1);
 }
 
 /* Animated background */
 .animated-bg {
-  background: linear-gradient(135deg, #0a0a0f, #1a0a1f, #0a1a1f);
+  background: linear-gradient(135deg, #000000, #0a1929, #001a33);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
@@ -87,8 +87,8 @@ body {
 /* Grid background */
 .grid-bg {
   background-image: 
-    linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(0, 191, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 191, 255, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
 }
 

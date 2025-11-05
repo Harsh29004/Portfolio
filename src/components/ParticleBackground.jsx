@@ -25,7 +25,7 @@ const ParticleBackground = () => {
       }
 
       getRandomColor() {
-        const colors = ['#00f5ff', '#ff00ff', '#00ff88']
+        const colors = ['#00BFFF', '#87CEEB', '#1E90FF']
         return colors[Math.floor(Math.random() * colors.length)]
       }
 
@@ -70,7 +70,7 @@ const ParticleBackground = () => {
           const distance = Math.sqrt(dx * dx + dy * dy)
 
           if (distance < 150) {
-            ctx.strokeStyle = `rgba(0, 245, 255, ${1 - distance / 150})`
+            ctx.strokeStyle = `rgba(0, 191, 255, ${1 - distance / 150})`
             ctx.lineWidth = 0.5
             ctx.beginPath()
             ctx.moveTo(particleA.x, particleA.y)

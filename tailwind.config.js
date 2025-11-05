@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#00f5ff',
-        secondary: '#ff00ff',
-        accent: '#00ff88',
-        dark: '#0a0a0f',
-        darker: '#050508',
+        primary: '#00BFFF',      // Deep Sky Blue
+        secondary: '#87CEEB',    // Sky Blue
+        accent: '#1E90FF',       // Dodger Blue
+        dark: '#000000',         // Pure Black
+        darker: '#0a0a0a',       // Near Black
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
