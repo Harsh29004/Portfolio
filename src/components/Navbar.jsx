@@ -46,57 +46,47 @@ const Navbar = () => {
   ]
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled ? 'glass-strong py-4' : 'py-6'
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/10 py-3' : 'bg-transparent py-5'
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
         {/* Logo */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="text-2xl font-bold gradient-text cursor-pointer"
+        <button
           onClick={() => scrollToSection('home')}
+          className="text-xl font-bold text-white hover:text-primary transition-colors duration-200"
         >
-          &lt;HP /&gt;
-        </motion.div>
+          Harsh Panchal
+        </button>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-1">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`relative text-sm font-medium transition-colors duration-300 ${
-                activeSection === item.id ? 'text-primary' : 'text-gray-300 hover:text-white'
+              className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                activeSection === item.id ? 'text-primary' : 'text-gray-400 hover:text-white'
               }`}
             >
               {item.label}
               {activeSection === item.id && (
-                <motion.div
-                  layoutId="activeSection"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
-                  initial={false}
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full"></span>
               )}
             </button>
           ))}
         </div>
 
         {/* CTA Button */}
-        <motion.a
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <a
           href="https://github.com/Harsh29004"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:block btn-primary"
+          className="hidden md:block px-5 py-2 bg-primary/10 border border-primary/30 text-primary text-sm font-medium rounded-lg hover:bg-primary/20 transition-all duration-200"
         >
           GitHub
-        </motion.a>
+        </a>
 
         {/* Mobile Menu Button */}
         <button className="md:hidden text-white">
@@ -105,7 +95,7 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
-    </motion.nav>
+    </nav>
   )
 }
 
