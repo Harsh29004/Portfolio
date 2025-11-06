@@ -99,7 +99,7 @@ const Footer = () => {
             © {currentYear} Harsh Panchal. All rights reserved.
           </p>
           <p className="text-gray-400 text-xs sm:text-sm flex items-center justify-center order-1 md:order-2">
-            Made with <FaHeart className="text-red-500 mx-1.5 sm:mx-2 animate-pulse" /> and AI
+            Made with <FaHeart className="text-red-500 mx-1.5 sm:mx-2 animate-pulse" />
           </p>
         </div>
       </div>
