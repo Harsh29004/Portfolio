@@ -66,7 +66,7 @@ const Experience = () => {
     icon: '🎓',
     highlights: [
       'Specialized in Artificial Intelligence and Data Science',
-      'Active member of GDSC and technical clubs',
+      'Active member of AI CLUB and  other technical clubs',
       'Participated in multiple hackathons and competitions',
       'Maintained strong academic performance'
     ]
