@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { 
-  SiHtml5, SiCss3, SiJavascript, SiPython, SiRust, SiSolidity,
+  SiHtml5, SiCss3, SiJavascript, SiPython, SiCplusplus,
   SiReact, SiNodedotjs, SiMongodb, SiTailwindcss, SiGit, 
-  SiTensorflow, SiPytorch, SiScikitlearn, SiOpencv, SiPandas,
-  SiNumpy, SiJupyter, SiVisualstudiocode, SiPostman, SiDocker
+  SiTensorflow, SiKeras, SiScikitlearn, SiOpencv, SiPandas,
+  SiNumpy, SiJupyter, SiVisualstudiocode, SiFlask, SiMysql
 } from 'react-icons/si'
 
 const Skills = () => {
@@ -17,14 +17,22 @@ const Skills = () => {
     { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'Python', icon: SiPython, color: '#3776AB' },
-    { name: 'Rust', icon: SiRust, color: '#000000' },
-    { name: 'Solidity', icon: SiSolidity, color: '#363636' },
+    { name: 'C++', icon: SiCplusplus, color: '#00599C' },
     { name: 'React', icon: SiReact, color: '#61DAFB' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
+    { name: 'Flask', icon: SiFlask, color: '#000000' },
     { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+    { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
     { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
     { name: 'Git', icon: SiGit, color: '#F05032' },
     { name: 'TensorFlow', icon: SiTensorflow, color: '#FF6F00' },
+    { name: 'Keras', icon: SiKeras, color: '#D00000' },
+    { name: 'Scikit-learn', icon: SiScikitlearn, color: '#F7931E' },
+    { name: 'OpenCV', icon: SiOpencv, color: '#5C3EE8' },
+    { name: 'Pandas', icon: SiPandas, color: '#150458' },
+    { name: 'NumPy', icon: SiNumpy, color: '#013243' },
+    { name: 'Jupyter', icon: SiJupyter, color: '#F37626' },
+    { name: 'VS Code', icon: SiVisualstudiocode, color: '#007ACC' },
   ]
 
   // Generate random positions for floating animation
