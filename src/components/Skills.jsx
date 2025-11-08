@@ -6,7 +6,15 @@ import {
   SiReact, SiNodedotjs, SiMongodb, SiTailwindcss, SiGit, 
   SiTensorflow, SiPytorch, SiOpencv, SiFlask, SiMysql
 } from 'react-icons/si'
-import { DiC } from "react-icons/di";
+
+// Custom C Language Icon Component
+const CIcon = ({ className, style }) => (
+  <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
+    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="18" fontWeight="bold" fontFamily="monospace">
+      C
+    </text>
+  </svg>
+)
 
 const Skills = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -17,7 +25,7 @@ const Skills = () => {
     { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'Python', icon: SiPython, color: '#3776AB' },
-    { name: 'C', icon: DiC, color: '#A8B9CC',},
+    { name: 'C', icon: CIcon, color: '#A8B9CC' },
     { name: 'React', icon: SiReact, color: '#61DAFB' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
     { name: 'Flask', icon: SiFlask, color: '#FFFFFF' },
@@ -145,19 +153,10 @@ const Skills = () => {
                       boxShadow: `0 4px 20px ${skill.color}20`
                     }}
                   >
-                    {skill.isText ? (
-                      <span 
-                        className="text-4xl md:text-5xl font-bold transition-all duration-300"
-                        style={{ color: skill.color }}
-                      >
-                        C
-                      </span>
-                    ) : (
-                      <Icon 
-                        className="w-10 h-10 md:w-12 md:h-12 transition-all duration-300" 
-                        style={{ color: skill.color }}
-                      />
-                    )}
+                    <Icon 
+                      className="w-10 h-10 md:w-12 md:h-12 transition-all duration-300" 
+                      style={{ color: skill.color }}
+                    />
                     
                     {/* Tooltip on hover */}
                     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
