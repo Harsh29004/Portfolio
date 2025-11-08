@@ -122,33 +122,33 @@ const Projects = () => {
               <motion.div
                 key={project.id}
                 variants={itemVariants}
-                whileHover={{ y: -10 }}
-                className="glass-strong rounded-2xl overflow-hidden transition-all duration-300"
+                whileHover={{ y: -5 }}
+                className="glass-strong rounded-xl overflow-hidden transition-all duration-300"
               >
                 {/* Project Icon */}
-                <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                  <div className="text-8xl animate-float">{project.image}</div>
-                  <div className="absolute top-4 left-4 px-3 py-1 glass rounded-full text-xs font-semibold">
+                <div className="relative h-32 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                  <div className="text-5xl animate-float">{project.image}</div>
+                  <div className="absolute top-3 left-3 px-2 py-1 glass rounded-full text-xs font-semibold">
                     {project.category}
                   </div>
                 </div>
 
                 {/* Project Content */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-gray-400 mb-4 line-clamp-2">{project.description}</p>
+                <div className="p-4">
+                  <h3 className="text-lg font-bold mb-2">{project.title}</h3>
+                  <p className="text-gray-400 text-sm mb-3 line-clamp-2">{project.description}</p>
                   
                   {/* Impact Badge */}
-                  <div className="mb-4 px-3 py-2 bg-primary/10 border border-primary/30 rounded-lg text-sm text-primary inline-block">
+                  <div className="mb-3 px-2 py-1 bg-primary/10 border border-primary/30 rounded text-xs text-primary inline-block">
                     📊 {project.impact}
                   </div>
 
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 text-xs font-mono glass rounded-full"
+                        className="px-2 py-0.5 text-xs font-mono glass rounded-full"
                       >
                         {tech}
                       </span>
@@ -156,12 +156,12 @@ const Projects = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => explainWithAI(project)}
-                      className="flex-1 px-4 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-sm"
+                      className="flex-1 px-3 py-1.5 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-xs"
                     >
                       Explain with AI
                     </motion.button>
@@ -171,7 +171,7 @@ const Projects = () => {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 border border-primary text-primary rounded-lg font-semibold text-sm hover:bg-primary hover:text-dark transition-colors"
+                      className="px-3 py-1.5 border border-primary text-primary rounded-lg font-semibold text-xs hover:bg-primary hover:text-dark transition-colors"
                     >
                       GitHub
                     </motion.a>
