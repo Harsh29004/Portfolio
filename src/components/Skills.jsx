@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { 
-  SiHtml5, SiCss3, SiJavascript, SiPython,SiC,
+  SiHtml5, SiCss3, SiJavascript, SiPython,
   SiReact, SiNodedotjs, SiMongodb, SiTailwindcss, SiGit, 
   SiTensorflow, SiPytorch, SiOpencv, SiFlask, SiMysql
 } from 'react-icons/si'
+import { DiC } from "react-icons/di";
 
 const Skills = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -16,7 +17,7 @@ const Skills = () => {
     { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'Python', icon: SiPython, color: '#3776AB' },
-    { name: 'C', icon: SiC, color: '#A8B9CC', isText: true },
+    { name: 'C', icon: DiC, color: '#A8B9CC', isText: true },
     { name: 'React', icon: SiReact, color: '#61DAFB' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
     { name: 'Flask', icon: SiFlask, color: '#FFFFFF' },
