@@ -1,48 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('')
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
+  const [isTypingComplete, setIsTypingComplete] = useState(false)
   
-  const phrases = [
-    'AI Engineer',
-    'Data Scientist',
-    'ML Enthusiast',
-    'Full-Stack Developer',
-    'Problem Solver'
-  ]
+  const mainRole = 'AI & Data Science Engineer'
 
   useEffect(() => {
-    const phrase = phrases[currentPhraseIndex]
+    if (isTypingComplete) return
+    
     let index = 0
-    let isDeleting = false
     
     const type = () => {
-      if (!isDeleting && index <= phrase.length) {
-        setDisplayText(phrase.substring(0, index))
+      if (index <= mainRole.length) {
+        setDisplayText(mainRole.substring(0, index))
         index++
-      } else if (isDeleting && index >= 0) {
-        setDisplayText(phrase.substring(0, index))
-        index--
+        setTimeout(type, 100)
+      } else {
+        setIsTypingComplete(true)
       }
-      
-      if (index === phrase.length + 1) {
-        setTimeout(() => { isDeleting = true }, 3000)
-      }
-      
-      if (isDeleting && index === 0) {
-        isDeleting = false
-        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
-      }
-      
-      const speed = isDeleting ? 80 : 150
-      setTimeout(type, speed)
     }
     
-    type()
-  }, [currentPhraseIndex])
+    // Start typing after a short delay
+    const timer = setTimeout(type, 500)
+    
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 pb-20 px-6 overflow-hidden">
@@ -83,7 +68,7 @@ const Hero = () => {
         >
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-400">
             {displayText}
-            <span className="typing-cursor text-primary ml-1">|</span>
+            {!isTypingComplete && <span className="typing-cursor text-primary ml-1">|</span>}
           </h2>
         </motion.div>
 
@@ -151,22 +136,6 @@ const Hero = () => {
           >
             <FaEnvelope />
           </a>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
-        >
-          <span className="text-xs text-gray-500 uppercase tracking-wider">Scroll Down</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          >
-            <FaArrowDown className="text-primary text-sm" />
-          </motion.div>
         </motion.div>
       </div>
     </section>
