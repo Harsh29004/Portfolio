@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
+import { supabase } from '../lib/supabase'
 
 const Contact = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -33,13 +34,28 @@ const Contact = () => {
     setIsSubmitting(true)
     
     try {
-      await axios.post('/api/contact', formData)
+      // Save to Supabase
+      const { data, error } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject || 'No Subject',
+            message: formData.message,
+            created_at: new Date().toISOString()
+          }
+        ])
+
+      if (error) {
+        throw error
+      }
+
       toast.success('Message sent successfully! I\'ll get back to you soon.')
       setFormData({ name: '', email: '', subject: '', message: '' })
     } catch (error) {
-      // For demo purposes, show success even if backend isn't running
-      toast.success('Thank you for reaching out! Your message has been recorded.')
-      setFormData({ name: '', email: '', subject: '', message: '' })
+      console.error('Error saving message:', error)
+      toast.error('Failed to send message. Please try again or email me directly.')
     } finally {
       setIsSubmitting(false)
     }
