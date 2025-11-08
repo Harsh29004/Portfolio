@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { 
-  SiHtml5, SiCss3, SiJavascript, SiPython, SiCplusplus,
+  SiHtml5, SiCss3, SiJavascript, SiPython, SiCplusplus, SiC, SiJava,
   SiReact, SiNodedotjs, SiMongodb, SiTailwindcss, SiGit, 
-  SiTensorflow, SiKeras, SiScikitlearn, SiOpencv, SiPandas,
-  SiNumpy, SiJupyter, SiVisualstudiocode, SiFlask, SiMysql
+  SiTensorflow, SiPytorch, SiOpencv, SiFlask, SiMysql
 } from 'react-icons/si'
 
 const Skills = () => {
@@ -18,21 +17,45 @@ const Skills = () => {
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'Python', icon: SiPython, color: '#3776AB' },
     { name: 'C++', icon: SiCplusplus, color: '#00599C' },
+    { name: 'C', icon: SiC, color: '#A8B9CC' },
+    { name: 'Java', icon: SiJava, color: '#007396' },
     { name: 'React', icon: SiReact, color: '#61DAFB' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-    { name: 'Flask', icon: SiFlask, color: '#000000' },
+    { name: 'Flask', icon: SiFlask, color: '#FFFFFF' },
     { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
     { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
     { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
     { name: 'Git', icon: SiGit, color: '#F05032' },
     { name: 'TensorFlow', icon: SiTensorflow, color: '#FF6F00' },
-    { name: 'Keras', icon: SiKeras, color: '#D00000' },
-    { name: 'Scikit-learn', icon: SiScikitlearn, color: '#F7931E' },
+    { name: 'PyTorch', icon: SiPytorch, color: '#EE4C2C' },
     { name: 'OpenCV', icon: SiOpencv, color: '#5C3EE8' },
-    { name: 'Pandas', icon: SiPandas, color: '#150458' },
-    { name: 'NumPy', icon: SiNumpy, color: '#013243' },
-    { name: 'Jupyter', icon: SiJupyter, color: '#F37626' },
-    { name: 'VS Code', icon: SiVisualstudiocode, color: '#007ACC' },
+  ]
+
+  const skillCategories = [
+    {
+      title: 'Programming Languages',
+      skills: ['Python', 'C', 'C++', 'Java']
+    },
+    {
+      title: 'Web Technologies',
+      skills: ['HTML', 'CSS', 'JavaScript', 'React']
+    },
+    {
+      title: 'Databases & Tools',
+      skills: ['MySQL', 'MongoDB', 'Git']
+    },
+    {
+      title: 'Frameworks & Libraries',
+      skills: ['TensorFlow', 'PyTorch', 'OpenCV']
+    },
+    {
+      title: 'Core Concepts',
+      skills: ['Data Structures & Algorithms', 'Machine Learning', 'Deep Learning', 'YOLO Object Detection', 'Explainable AI (XAI)']
+    },
+    {
+      title: 'Soft Skills',
+      skills: ['Teamwork', 'Problem Solving', 'Creativity', 'Adaptability', 'Communication']
+    }
   ]
 
   // Generate random positions for floating animation
@@ -88,7 +111,7 @@ const Skills = () => {
           {/* Floating Icons Grid */}
           <motion.div 
             variants={containerVariants}
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 max-w-5xl mx-auto"
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 max-w-5xl mx-auto mb-16"
           >
             {skills.map((skill, index) => {
               const Icon = skill.icon
@@ -139,24 +162,32 @@ const Skills = () => {
             })}
           </motion.div>
 
-          {/* Category Labels */}
-          <motion.div 
-            variants={itemVariants}
-            className="mt-20 grid md:grid-cols-4 gap-6 text-center"
+          {/* Category Boxes */}
+          <motion.div
+            variants={containerVariants}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {[
-              { title: 'Languages', icon: '�' },
-              { title: 'Frameworks', icon: '⚛️' },
-              { title: 'Databases', icon: '🗄️' },
-              { title: 'Tools', icon: '🛠️' },
-            ].map((category, index) => (
+            {skillCategories.map((category, index) => (
               <motion.div
                 key={index}
+                variants={itemVariants}
                 whileHover={{ y: -5 }}
-                className="glass-strong rounded-xl p-6"
+                className="glass-strong rounded-xl p-6 border border-primary/20"
               >
-                <div className="text-4xl mb-3">{category.icon}</div>
-                <h3 className="text-lg font-semibold text-primary">{category.title}</h3>
+                <h3 className="text-xl font-bold mb-4 text-white">
+                  {category.title}
+                </h3>
+                <ul className="space-y-2">
+                  {category.skills.map((skill, skillIndex) => (
+                    <li
+                      key={skillIndex}
+                      className="flex items-start text-gray-300"
+                    >
+                      <span className="text-primary mr-2"></span>
+                      <span className="text-sm">{skill}</span>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
           </motion.div>
@@ -167,3 +198,4 @@ const Skills = () => {
 }
 
 export default Skills
+
