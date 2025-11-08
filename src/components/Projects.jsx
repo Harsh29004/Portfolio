@@ -9,8 +9,6 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
   const [aiExplanation, setAiExplanation] = useState('')
   const [isLoadingExplanation, setIsLoadingExplanation] = useState(false)
-  const [recommendedProjects, setRecommendedProjects] = useState([])
-  const [userQuery, setUserQuery] = useState('')
 
   const projects = [
     {
@@ -78,38 +76,6 @@ const Projects = () => {
     }
   }
 
-  const getRecommendations = async () => {
-    if (!userQuery.trim()) {
-      toast.error('Please enter a query first!')
-      return
-    }
-
-    try {
-      const response = await axios.post('/api/recommend-projects', {
-        query: userQuery
-      })
-      setRecommendedProjects(response.data.recommendations || [])
-      toast.success('Recommendations generated!')
-    } catch (error) {
-      // Fallback recommendation logic
-      const query = userQuery.toLowerCase()
-      let recommendations = []
-      
-      if (query.includes('ai') || query.includes('ml') || query.includes('machine learning')) {
-        recommendations = projects.filter(p => p.category.includes('Learning') || p.category.includes('AI'))
-      } else if (query.includes('web') || query.includes('frontend')) {
-        recommendations = projects.filter(p => p.category.includes('Web'))
-      } else if (query.includes('deep learning') || query.includes('cnn')) {
-        recommendations = projects.filter(p => p.technologies.some(t => ['CNN', 'TensorFlow', 'Keras'].includes(t)))
-      } else {
-        recommendations = projects.slice(0, 2)
-      }
-      
-      setRecommendedProjects(recommendations.map(p => p.id))
-      toast.success('Recommendations ready!')
-    }
-  }
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -147,40 +113,6 @@ const Projects = () => {
             </p>
           </motion.div>
 
-          {/* AI Recommendation System */}
-          <motion.div variants={itemVariants} className="mb-12 glass-strong rounded-2xl p-6 max-w-3xl mx-auto">
-            <div className="flex items-center mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-accent to-primary flex items-center justify-center mr-3">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                  <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold">AI Project Recommender</h3>
-            </div>
-            <p className="text-gray-400 text-sm mb-4">
-              Tell me what you're looking for, and I'll recommend the most relevant projects
-            </p>
-            <div className="flex gap-3">
-              <input
-                type="text"
-                value={userQuery}
-                onChange={(e) => setUserQuery(e.target.value)}
-                placeholder="e.g., I'm interested in AI and machine learning projects"
-                className="flex-1 px-4 py-3 bg-dark/50 border border-gray-700 rounded-lg focus:border-primary focus:outline-none text-white"
-                onKeyPress={(e) => e.key === 'Enter' && getRecommendations()}
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={getRecommendations}
-                className="px-6 py-3 bg-gradient-to-r from-accent to-primary rounded-lg font-semibold"
-              >
-                Recommend
-              </motion.button>
-            </div>
-          </motion.div>
-
           {/* Projects Grid */}
           <motion.div
             variants={containerVariants}
@@ -191,21 +123,11 @@ const Projects = () => {
                 key={project.id}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
-                className={`glass-strong rounded-2xl overflow-hidden transition-all duration-300 ${
-                  recommendedProjects.includes(project.id) ? 'ring-2 ring-accent shadow-lg shadow-accent/50' : ''
-                }`}
+                className="glass-strong rounded-2xl overflow-hidden transition-all duration-300"
               >
                 {/* Project Icon */}
                 <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
                   <div className="text-8xl animate-float">{project.image}</div>
-                  {recommendedProjects.includes(project.id) && (
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-accent rounded-full text-xs font-semibold flex items-center">
-                      <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      Recommended
-                    </div>
-                  )}
                   <div className="absolute top-4 left-4 px-3 py-1 glass rounded-full text-xs font-semibold">
                     {project.category}
                   </div>
