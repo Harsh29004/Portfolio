@@ -34,7 +34,7 @@ const Contact = () => {
     setIsSubmitting(true)
     
     try {
-      // Save to Supabase
+      // Save to Supabase (which will trigger email via database trigger)
       const { data, error } = await supabase
         .from('contact_messages')
         .insert([
@@ -46,6 +46,7 @@ const Contact = () => {
             created_at: new Date().toISOString()
           }
         ])
+        .select()
 
       if (error) {
         throw error
