@@ -69,6 +69,7 @@ const Skills = () => {
       }))
     }
     setPositions(generateRandomPosition())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const containerVariants = {
@@ -183,7 +184,7 @@ const Skills = () => {
                       key={skillIndex}
                       className="flex items-start text-gray-300"
                     >
-                      <span className="text-primary mr-2"></span>
+                      <span className="text-primary mr-2">•</span>
                       <span className="text-sm">{skill}</span>
                     </li>
                   ))}
