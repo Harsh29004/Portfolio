@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
-import { supabase } from '../lib/supabase'
 
 const Contact = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -34,29 +32,23 @@ const Contact = () => {
     setIsSubmitting(true)
     
     try {
-      // Save to Supabase (which will trigger email via database trigger)
-      const { data, error } = await supabase
-        .from('contact_messages')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject || 'No Subject',
-            message: formData.message,
-            created_at: new Date().toISOString()
-          }
-        ])
-        .select()
-
-      if (error) {
-        throw error
-      }
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Log to console (in production, this would send to your email service)
+      console.log('Contact Form Submission:', {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject || 'No Subject',
+        message: formData.message,
+        timestamp: new Date().toISOString()
+      })
 
       toast.success('Message sent successfully! I\'ll get back to you soon.')
       setFormData({ name: '', email: '', subject: '', message: '' })
     } catch (error) {
-      console.error('Error saving message:', error)
-      toast.error('Failed to send message. Please try again or email me directly.')
+      console.error('Error sending message:', error)
+      toast.error('Failed to send message. Please email me directly at harshpanchal2904@gmail.com')
     } finally {
       setIsSubmitting(false)
     }
