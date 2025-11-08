@@ -17,7 +17,7 @@ const Skills = () => {
     { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'Python', icon: SiPython, color: '#3776AB' },
-    { name: 'C', icon: DiC, color: '#A8B9CC', isText: true },
+    { name: 'C', icon: DiC, color: '#A8B9CC',},
     { name: 'React', icon: SiReact, color: '#61DAFB' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
     { name: 'Flask', icon: SiFlask, color: '#FFFFFF' },
