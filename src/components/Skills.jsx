@@ -1,103 +1,75 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { 
-  SiHtml5, SiCss3, SiJavascript, SiPython,
-  SiReact, SiNodedotjs, SiMongodb, SiTailwindcss, SiGit, 
-  SiTensorflow, SiPytorch, SiOpencv, SiFlask, SiMysql
-} from 'react-icons/si'
-
-// Custom C Language Icon Component
-const CIcon = ({ className, style }) => (
-  <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
-    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="18" fontWeight="bold" fontFamily="monospace">
-      C
-    </text>
-  </svg>
-)
 
 const Skills = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [positions, setPositions] = useState([])
-
-  const skills = [
-    { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
-    { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
-    { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-    { name: 'Python', icon: SiPython, color: '#3776AB' },
-    { name: 'C', icon: CIcon, color: '#A8B9CC' },
-    { name: 'React', icon: SiReact, color: '#61DAFB' },
-    { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-    { name: 'Flask', icon: SiFlask, color: '#FFFFFF' },
-    { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-    { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
-    { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
-    { name: 'Git', icon: SiGit, color: '#F05032' },
-    { name: 'TensorFlow', icon: SiTensorflow, color: '#FF6F00' },
-    { name: 'PyTorch', icon: SiPytorch, color: '#EE4C2C' },
-    { name: 'OpenCV', icon: SiOpencv, color: '#5C3EE8' },
-  ]
 
   const skillCategories = [
     {
       title: 'Programming Languages',
-      skills: ['Python', 'C']
+      icon: '💻',
+      skills: [
+        { name: 'Python', level: 90, color: 'from-blue-500 to-blue-600' },
+        { name: 'JavaScript', level: 85, color: 'from-yellow-500 to-yellow-600' },
+        { name: 'C/C++', level: 75, color: 'from-purple-500 to-purple-600' },
+        { name: 'SQL', level: 80, color: 'from-orange-500 to-orange-600' },
+      ]
     },
     {
-      title: 'Web Technologies',
-      skills: ['HTML', 'CSS', 'JavaScript', 'React']
+      title: 'AI & Machine Learning',
+      icon: '🤖',
+      skills: [
+        { name: 'TensorFlow', level: 85, color: 'from-orange-500 to-red-500' },
+        { name: 'Keras', level: 80, color: 'from-red-500 to-pink-500' },
+        { name: 'Scikit-learn', level: 90, color: 'from-blue-500 to-cyan-500' },
+        { name: 'OpenCV', level: 75, color: 'from-green-500 to-emerald-500' },
+        { name: 'XGBoost', level: 80, color: 'from-yellow-500 to-orange-500' },
+      ]
     },
     {
-      title: 'Databases & Tools',
-      skills: ['MySQL', 'MongoDB', 'Git']
+      title: 'Web Development',
+      icon: '🌐',
+      skills: [
+        { name: 'React', level: 88, color: 'from-cyan-500 to-blue-500' },
+        { name: 'HTML/CSS', level: 90, color: 'from-orange-500 to-red-500' },
+        { name: 'Flask', level: 82, color: 'from-gray-500 to-gray-700' },
+        { name: 'Vite', level: 85, color: 'from-purple-500 to-pink-500' },
+        { name: 'Tailwind CSS', level: 87, color: 'from-cyan-400 to-blue-500' },
+      ]
     },
     {
-      title: 'Frameworks & Libraries',
-      skills: ['TensorFlow', 'PyTorch', 'OpenCV']
-    },
-    {
-      title: 'Core Concepts',
-      skills: ['Data Structures & Algorithms', 'Machine Learning', 'Deep Learning', 'YOLO Object Detection', 'Explainable AI (XAI)']
-    },
-    {
-      title: 'Soft Skills',
-      skills: ['Teamwork', 'Problem Solving', 'Creativity', 'Adaptability', 'Communication']
+      title: 'Tools & Databases',
+      icon: '🛠️',
+      skills: [
+        { name: 'Git/GitHub', level: 85, color: 'from-gray-600 to-gray-800' },
+        { name: 'MongoDB', level: 75, color: 'from-green-500 to-green-600' },
+        { name: 'MySQL', level: 80, color: 'from-blue-500 to-blue-600' },
+        { name: 'VS Code', level: 90, color: 'from-blue-500 to-cyan-500' },
+        { name: 'Jupyter', level: 85, color: 'from-orange-500 to-orange-600' },
+      ]
     }
   ]
-
-  // Generate random positions for floating animation
-  useEffect(() => {
-    const generateRandomPosition = () => {
-      return skills.map(() => ({
-        x: Math.random() * 20 - 10,
-        y: Math.random() * 20 - 10,
-        duration: 3 + Math.random() * 2,
-        delay: Math.random() * 2
-      }))
-    }
-    setPositions(generateRandomPosition())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.08 }
+      transition: { staggerChildren: 0.1 }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0 },
+    hidden: { opacity: 0, x: -20 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, type: 'spring', stiffness: 100 }
+      x: 0,
+      transition: { duration: 0.5 }
     }
   }
 
   return (
-    <section id="skills" className="py-20 px-6 relative overflow-hidden">
+    <section id="skills" className="py-20 px-6 relative">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           ref={ref}
@@ -112,92 +84,77 @@ const Skills = () => {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Technologies I work with
+              Comprehensive skill set spanning AI, Machine Learning, and Full-Stack Development
             </p>
           </motion.div>
 
-          {/* Floating Icons Grid */}
-          <motion.div 
-            variants={containerVariants}
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 max-w-5xl mx-auto mb-16"
-          >
-            {skills.map((skill, index) => {
-              const Icon = skill.icon
-              const pos = positions[index] || { x: 0, y: 0, duration: 3, delay: 0 }
-              
-              return (
-                <motion.div
-                  key={skill.name}
-                  variants={itemVariants}
-                  className="flex items-center justify-center"
-                >
-                  <motion.div
-                    animate={{
-                      x: [0, pos.x, -pos.x, 0],
-                      y: [0, pos.y, -pos.y, 0],
-                    }}
-                    transition={{
-                      duration: pos.duration,
-                      repeat: Infinity,
-                      repeatType: 'reverse',
-                      delay: pos.delay,
-                      ease: 'easeInOut'
-                    }}
-                    whileHover={{ 
-                      scale: 1.2,
-                      filter: 'brightness(1.3)',
-                      boxShadow: `0 0 25px ${skill.color}80`
-                    }}
-                    className="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center cursor-pointer transition-all duration-300 group"
-                    style={{
-                      boxShadow: `0 4px 20px ${skill.color}20`
-                    }}
-                  >
-                    <Icon 
-                      className="w-10 h-10 md:w-12 md:h-12 transition-all duration-300" 
-                      style={{ color: skill.color }}
-                    />
-                    
-                    {/* Tooltip on hover */}
-                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <span className="text-xs font-medium text-gray-300 whitespace-nowrap bg-black/80 px-2 py-1 rounded">
-                        {skill.name}
-                      </span>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )
-            })}
-          </motion.div>
-
-          {/* Category Boxes */}
-          <motion.div
-            variants={containerVariants}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {skillCategories.map((category, index) => (
+          {/* Skills Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {skillCategories.map((category, categoryIndex) => (
               <motion.div
-                key={index}
+                key={categoryIndex}
                 variants={itemVariants}
-                whileHover={{ y: -5 }}
-                className="glass-strong rounded-xl p-6 border border-primary/20"
+                className="glass-strong rounded-2xl p-6"
               >
-                <h3 className="text-xl font-bold mb-4 text-white">
-                  {category.title}
-                </h3>
-                <ul className="space-y-2">
+                {/* Category Header */}
+                <div className="flex items-center mb-6">
+                  <span className="text-4xl mr-4">{category.icon}</span>
+                  <h3 className="text-2xl font-bold">{category.title}</h3>
+                </div>
+
+                {/* Skills List */}
+                <div className="space-y-4">
                   {category.skills.map((skill, skillIndex) => (
-                    <li
-                      key={skillIndex}
-                      className="flex items-start text-gray-300"
-                    >
-                      <span className="text-primary mr-2">•</span>
-                      <span className="text-sm">{skill}</span>
-                    </li>
+                    <div key={skillIndex}>
+                      <div className="flex justify-between mb-2">
+                        <span className="font-medium text-gray-300">{skill.name}</span>
+                        <span className="text-primary font-semibold">{skill.level}%</span>
+                      </div>
+                      <div className="h-2 bg-dark rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
+                          transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.1 }}
+                          className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative`}
+                        >
+                          <div className="absolute inset-0 bg-white/20 animate-shimmer"></div>
+                        </motion.div>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Additional Skills */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-12 glass-strong rounded-2xl p-8"
+          >
+            <h3 className="text-2xl font-bold mb-6 text-center">
+              Core <span className="gradient-text">Competencies</span>
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { icon: '🧠', title: 'Deep Learning', desc: 'CNN, RNN, Transfer Learning' },
+                { icon: '📊', title: 'Data Analysis', desc: 'Pandas, NumPy, Matplotlib' },
+                { icon: '🎯', title: 'Model Optimization', desc: 'Hyperparameter Tuning' },
+                { icon: '🔍', title: 'Computer Vision', desc: 'Image Processing, Detection' },
+                { icon: '📈', title: 'Predictive Analytics', desc: 'Regression, Classification' },
+                { icon: '🚀', title: 'Deployment', desc: 'Flask, Docker, Cloud Services' },
+              ].map((competency, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  className="glass rounded-xl p-6 text-center"
+                >
+                  <div className="text-4xl mb-3">{competency.icon}</div>
+                  <h4 className="font-semibold text-lg mb-2 text-primary">{competency.title}</h4>
+                  <p className="text-sm text-gray-400">{competency.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </div>
@@ -206,4 +163,3 @@ const Skills = () => {
 }
 
 export default Skills
-

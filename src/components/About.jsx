@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const About = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [generatedBio, setGeneratedBio] = useState('')
+  const [isGenerating, setIsGenerating] = useState(false)
+
+  const generateAIBio = async () => {
+    setIsGenerating(true)
+    try {
+      const response = await axios.post('/api/generate-bio')
+      setGeneratedBio(response.data.bio)
+      toast.success('Bio generated!')
+    } catch (error) {
+      const fallbackBio = "I specialize in developing intelligent systems that bridge the gap between complex data and practical solutions. My work focuses on machine learning, deep learning, and full-stack development—turning theoretical concepts into real-world applications that matter."
+      setGeneratedBio(fallbackBio)
+      toast.success('Bio generated!')
+    } finally {
+      setIsGenerating(false)
+    }
+  }
 
   const stats = [
     { label: 'Projects', value: '10+' },
@@ -96,6 +115,32 @@ const About = () => {
                   When I'm not coding, you'll find me exploring new technologies, contributing to open-source, 
                   or learning something new in the ever-evolving world of AI.
                 </p>
+              </div>
+
+              {/* AI Bio Generator */}
+              <div className="bg-white/5 border border-white/10 rounded-lg p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
+                    AI-Generated Summary
+                  </h4>
+                  <button
+                    onClick={generateAIBio}
+                    disabled={isGenerating}
+                    className="px-3 py-1.5 bg-primary/20 border border-primary/30 text-primary text-xs font-medium rounded hover:bg-primary/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isGenerating ? 'Generating...' : 'Generate'}
+                  </button>
+                </div>
+                
+                {generatedBio ? (
+                  <p className="text-sm text-gray-300 leading-relaxed italic">
+                    {generatedBio}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-500 italic">
+                    Click "Generate" to create an AI summary
+                  </p>
+                )}
               </div>
             </motion.div>
           </div>
