@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import axios from 'axios'
+import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
 import { supabase } from '../lib/supabase'
@@ -60,14 +60,42 @@ const Contact = () => {
         message: formData.message.trim()
       }
 
-      // Insert into Supabase database
-      const { error } = await supabase
+      // 1. Insert into Supabase database
+      const { error: dbError } = await supabase
         .from('contact_messages')
         .insert(messageData)
 
-      if (error) {
-        console.error('Database error:', error)
-        throw new Error(error.message)
+      if (dbError) {
+        console.error('Database error:', dbError)
+        throw new Error(dbError.message)
+      }
+
+      // 2. Send email notification using EmailJS
+      try {
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+        // Only send email if EmailJS is configured
+        if (serviceId && templateId && publicKey && 
+            serviceId !== 'your_service_id_here') {
+          await emailjs.send(
+            serviceId,
+            templateId,
+            {
+              from_name: messageData.name,
+              from_email: messageData.email,
+              subject: messageData.subject,
+              message: messageData.message,
+              to_name: 'Harsh Panchal',
+              to_email: 'harshpanchal2904@gmail.com'
+            },
+            publicKey
+          )
+        }
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError)
+        // Don't throw - message is saved in database, email is bonus
       }
 
       // Success
