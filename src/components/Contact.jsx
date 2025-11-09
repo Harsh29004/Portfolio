@@ -26,40 +26,57 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Please fill in all required fields!')
+    // Validate required fields
+    if (!formData.name.trim()) {
+      toast.error('Please enter your name')
+      return
+    }
+
+    if (!formData.email.trim()) {
+      toast.error('Please enter your email')
+      return
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Please enter a valid email address')
+      return
+    }
+
+    if (!formData.message.trim()) {
+      toast.error('Please enter a message')
       return
     }
 
     setIsSubmitting(true)
     
     try {
-      console.log('Attempting to save to Supabase...', formData)
-      
-      // Save to Supabase
-      const { data, error } = await supabase
-        .from('contact_messages')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject || 'No Subject',
-            message: formData.message
-          }
-        ])
-        .select()
-
-      if (error) {
-        console.error('Supabase error:', error)
-        throw error
+      // Prepare data for insertion
+      const messageData = {
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        subject: formData.subject.trim() || 'No Subject',
+        message: formData.message.trim()
       }
 
-     
+      // Insert into Supabase database
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert(messageData)
+
+      if (error) {
+        console.error('Database error:', error)
+        throw new Error(error.message)
+      }
+
+      // Success
       toast.success('Message sent successfully! I\'ll get back to you soon.')
       setFormData({ name: '', email: '', subject: '', message: '' })
+      
     } catch (error) {
-      console.error('Error saving message:', error)
-      toast.error('Failed to send message. Please try again or email me directly.')
+      console.error('Failed to send message:', error)
+      toast.error('Failed to send message. Please try emailing me directly.')
     } finally {
       setIsSubmitting(false)
     }
